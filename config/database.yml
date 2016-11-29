@@ -1,0 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: <%= ENV['database_username'] %>
+  password: <%= ENV['database_password'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: pazuzu_development
+
+
+test:
+  <<: *default
+  database: pazuzu_test
+
+
+production:
+  <<: *default
+  database: pazuzu_production
+  username: pazuzu
+  password: <%= ENV['PAZUZU_DATABASE_PASSWORD'] %>
