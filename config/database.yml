@@ -18,5 +18,3 @@ test:
 production:
   <<: *default
   database: pazuzu_production
-  username: pazuzu
-  password: <%= ENV['PAZUZU_DATABASE_PASSWORD'] %>

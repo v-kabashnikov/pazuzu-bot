@@ -1,5 +1,6 @@
 require 'telegram/bot'
 include BotCommand
+require 'bot_message_dispatcher'
 
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
@@ -22,7 +23,7 @@ class WebhooksController < ApplicationController
   end
 
   def dispatcher
-    BotMessageDispatcher
+    ::BotMessageDispatcher
   end
 
   def from

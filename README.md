@@ -1,24 +1,25 @@
-# README
+Ruby 2.3.1
+Rails 5.0.0.1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+rvm gemset create pazuzu
+rvm use 2.3.1@pazuzu
+gem install bundler
+bundle
+bundle exec figaro install
 
-Things you may want to cover:
+config/application.yml
 
-* Ruby version
+default: &default
+   database_username:
+   database_password:
+   token:
 
-* System dependencies
 
-* Configuration
+DB: PostgreSQL 9.5.5
 
-* Database creation
+rake db:create
+rake db:migrate
 
-* Database initialization
+Telegram webhook set task:
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+rake telegram_bot:set_webhook url="subdomain.domain.asd"
