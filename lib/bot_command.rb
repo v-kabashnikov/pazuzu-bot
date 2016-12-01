@@ -126,8 +126,7 @@ module BotCommand
       url = URI.parse("https://api.opendota.com/api/players/212838883/wordcloud")
       words = JSON.parse(Net::HTTP.get(url))
       url = URI.parse("https://api.opendota.com/api/players/98977895/wordcloud")
-      words += JSON.parse(Net::HTTP.get(url))
-      send_message(words["my_word_counts"].keys.sample)
+      words.merge(JSON.parse(Net::HTTP.get(url)))
       string = ""
       words["my_word_counts"].keys.each do |word|
         string << " " << word
@@ -135,7 +134,8 @@ module BotCommand
       markov = MarkyMarkov::TemporaryDictionary.new
       markov.parse_string string
       @api.call('sendSticker', chat_id: @user.telegram_id, sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
-      send_message(markov.generate_n_words 5)
+      send_message(markov.generate_n_words rand(1...5))
+      send_message(markov.generate_n_words rand(1...5))
       #user.reset_next_bot_command
       #user.set_next_bot_command('BotCommand::Born')
     end
