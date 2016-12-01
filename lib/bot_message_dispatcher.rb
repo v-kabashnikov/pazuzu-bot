@@ -3,7 +3,7 @@ include BotCommand
 
 class BotMessageDispatcher
   attr_reader :message, :user
-  COMMANDS = {demo: 'Demo', help: 'Help', daily_stat: 'DailyStat', anal: 'Analytics'}
+  COMMANDS = {demo: 'Demo', help: 'Help', daily_stat: 'DailyStat', anal: 'Analytics', nuff: 'NuffSaid'}
 
   def initialize(message, user)
     @message = message
@@ -38,7 +38,7 @@ class BotMessageDispatcher
     #   end
     # else
     #   binding.pry
-    #   command = 
+    #   command =
     #   if command == 'start'
     #     start_command = BotCommand::Start.new(user, message)
     #   end
@@ -50,7 +50,7 @@ class BotMessageDispatcher
     #   end
     # end
   end
-  
+
   private
 
   def unknown_command
