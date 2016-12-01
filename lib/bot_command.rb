@@ -141,6 +141,32 @@ module BotCommand
     end
   end
 
+  class Aaa < Base
+    def should_start?
+      text =~ /\A\/aaa/
+    end
+
+    def start
+      #binding.pry
+      url = URI.parse("https://api.opendota.com/api/players/212838883/wordcloud")
+      words = JSON.parse(Net::HTTP.get(url))
+      url = URI.parse("https://api.opendota.com/api/players/98977895/wordcloud")
+      words.merge(JSON.parse(Net::HTTP.get(url)))
+      string = ""
+      words["my_word_counts"].keys.each do |word|
+        string << " " << word
+      end
+      markov = MarkyMarkov::TemporaryDictionary.new
+      markov.parse_string string
+      @api.call('sendSticker', chat_id: "-157263808", sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
+      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      #user.reset_next_bot_command
+      #user.set_next_bot_command('BotCommand::Born')
+    end
+  end
+
+
   class Undefined < Base
     def start
       send_message('It is not time yet')
