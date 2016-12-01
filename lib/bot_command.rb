@@ -126,7 +126,7 @@ module BotCommand
       url = URI.parse("https://api.opendota.com/api/players/212838883/wordcloud")
       words = JSON.parse(Net::HTTP.get(url))
       url = URI.parse("https://api.opendota.com/api/players/98977895/wordcloud")
-      words << JSON.parse(Net::HTTP.get(url))
+      words += JSON.parse(Net::HTTP.get(url))
       send_message(words["my_word_counts"].keys.sample)
       string = ""
       words["my_word_counts"].keys.each do |word|
