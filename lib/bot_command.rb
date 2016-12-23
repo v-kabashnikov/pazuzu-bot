@@ -133,10 +133,10 @@ module BotCommand
       end
       markov = MarkyMarkov::TemporaryDictionary.new
       markov.parse_string string
-      #@api.call('sendSticker', chat_id: @user.telegram_id, sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
-      #send_message(markov.generate_n_words rand(1...5))
-      #send_message(markov.generate_n_words rand(1...5))
-      send_message("v pizdu idi a")
+      @api.call('sendSticker', chat_id: @user.telegram_id, sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
+      send_message(markov.generate_n_words rand(1...5))
+      send_message(markov.generate_n_words rand(1...5))
+      #send_message("v pizdu idi a")
       #user.reset_next_bot_command
       #user.set_next_bot_command('BotCommand::Born')
     end
@@ -159,10 +159,10 @@ module BotCommand
       end
       markov = MarkyMarkov::TemporaryDictionary.new
       markov.parse_string string
-      #@api.call('sendSticker', chat_id: "-157263808", sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
-      #@api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
-      #@api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
-      @api.call('sendMessage', chat_id: "-157263808", text: ("idi v pizdu fb"))
+      @api.call('sendSticker', chat_id: "-157263808", sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
+      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      #@api.call('sendMessage', chat_id: "-157263808", text: ("idi v pizdu fb"))
       #user.reset_next_bot_command
       #user.set_next_bot_command('BotCommand::Born')
     end
