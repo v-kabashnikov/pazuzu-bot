@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'telegram-bot-ruby'
 gem "figaro"
 gem 'marky_markov'
+gem 'whatlanguage', '~> 1.0', '>= 1.0.6'
+gem 'detect_language'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

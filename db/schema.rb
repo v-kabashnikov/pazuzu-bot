@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026210845) do
+ActiveRecord::Schema.define(version: 20170203113119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "characters", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "telegram_id"
@@ -22,6 +28,15 @@ ActiveRecord::Schema.define(version: 20161026210845) do
     t.jsonb    "bot_command_data", default: {}
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+  end
+
+  create_table "vocabularies", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "character_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["character_id"], name: "index_vocabularies_on_character_id", using: :btree
   end
 
 end

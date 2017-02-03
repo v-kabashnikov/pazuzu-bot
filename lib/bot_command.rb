@@ -1,5 +1,6 @@
 require 'telegram/bot'
 require 'marky_markov'
+require 'whatlanguage'
 
 module BotCommand
   class Base
@@ -47,6 +48,25 @@ module BotCommand
         send_message("/#{value}")
       end
       user.reset_next_bot_command
+    end
+  end
+
+  class Update < Base
+    def should_start?
+      text =~ /\A\/update/
+    end
+
+    def start
+
+      character = Character.create(name: 'Shew')
+      url = URI.parse("https://api.opendota.com/api/players/212838883/wordcloud")
+      words = JSON.parse(Net::HTTP.get(url))
+      url = URI.parse("https://api.opendota.com/api/players/98977895/wordcloud")
+      words.merge(JSON.parse(Net::HTTP.get(url)))
+      words["my_word_counts"].keys.each do |word|
+        Character.find_or_create_by(name: "Shwtsow").note_word(word)
+      end
+      send_message(updated)
     end
   end
 
@@ -152,15 +172,23 @@ module BotCommand
       words = JSON.parse(Net::HTTP.get(url))
       url = URI.parse("https://api.opendota.com/api/players/98977895/wordcloud")
       words.merge(JSON.parse(Net::HTTP.get(url)))
-      string = ""
-      words["my_word_counts"].keys.each do |word|
-        string << " " << word
-      end
-      markov = MarkyMarkov::TemporaryDictionary.new
-      markov.parse_string string
+      rus_vocabulary = ""
+      eng_vocabulary = ""
+      # binding.pry
+      # words["my_word_counts"].keys.each do |word|
+      #   if DetectLanguage.simple_detect(word) == "en"
+      #     p
+      #     eng_vocabulary << " " << word
+      #   else
+      #     rus_vocabulary << " " << word
+      #   end
+      # end
+      # markov = MarkyMarkov::TemporaryDictionary.new
+      # #markov.parse_string string
+      # binding.pry
       @api.call('sendSticker', chat_id: "-157263808", sticker: 'BQADAgADTgADgZGXCSQKssDR8ic0Ag')
-      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
-      @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      # @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
+      # @api.call('sendMessage', chat_id: "-157263808", text: (markov.generate_n_words rand(1...5)))
       #user.reset_next_bot_command
       #user.set_next_bot_command('BotCommand::Born')
     end
